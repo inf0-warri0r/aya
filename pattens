@@ -1,0 +1,37 @@
+are you v:yes, no, i am v
+is n n:yes, no, n is n
+are n n:yes, no, n are n
+is n v:yes, no, n is v
+are n v:yes, no, n are v
+what is n v:n it is v
+what are n v:n it are v
+who is n v:n is v
+who are n v:n are v
+how are you:i am fine
+how are you v:i am v
+what are you:i am program
+what is v:is v
+what's v:is v
+do you v:yes, no, i v
+did you v:i did v
+who are you:i am program
+what is your n:my n is
+what's your n:my n is
+what are your n:my n are
+hello:hello
+hi:hello
+are you n:i am n
+how do you do:i am fine
+where do you v:i v place
+have you v:yes, no, i v
+has n v:yes, no, n v
+have n v:yes, no, n v
+would you v:yes, no, i v
+should you v:yes, no, i v
+would n v:yes, no, n v
+could you v:yes, no, n v
+can you v:yes, no, i v
+could n v:yes, no, n v
+can n v:yes, no, n v
+g n:g n
+what is n:n is
