@@ -1,4 +1,3 @@
-import random
 
 
 class patten:
@@ -30,7 +29,7 @@ class patten:
             self.adv[word] = 1
 
     def read_greets(self):
-        fv = open("greed", 'r')
+        fv = open("greet", 'r')
         words = fv.read().splitlines()
         for word in words:
             self.greet[word] = 1
@@ -153,8 +152,9 @@ class patten:
                         nv.append(word)
 
         while d.get('=', 0) == 0:
-            key = random.choice(d.keys())
-            d = d[key]
+            #key = random.choice(d.keys())
+            #d = d[key]
+            return list(), list()
 
         return d['='], nv
 

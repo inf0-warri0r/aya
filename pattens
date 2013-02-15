@@ -13,7 +13,11 @@ what are you:i am program
 what is v:is v
 what's v:is v
 do you v:yes, no, i v
+do n v:yes, no, n v
 did you v:i did v
+did you do:i did
+did n v:yes, no, n v
+did you:yes, no, i
 who are you:i am program
 what is your n:my n is
 what's your n:my n is
@@ -35,3 +39,12 @@ could n v:yes, no, n v
 can n v:yes, no, n v
 g n:g n
 what is n:n is
+why:because
+why n:because n
+why you:because i
+where are you:i am
+where are you v:i am v
+where is n:n is
+where are n:n are
+where is n v:n is v
+where are n v:n are v

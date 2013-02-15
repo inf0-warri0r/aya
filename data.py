@@ -36,6 +36,46 @@ class data:
         for line in lines:
             self.stop[line] = 1
 
+    def score(self, s, ls, old, sc, r, r_old, f=False):
+        co = 0
+        co = co + sc
+        #print "aaa ", r, " ", r_old
+        words = s.split()
+        for i in range(0, len(words)):
+            words[i] = words[i].replace(".", "")
+            words[i] = self.p.stm(words[i])
+        for word in ls:
+            if self.p.stm(word) in words and not self.p.is_adv(word) and self.stop.get(word, 0) == 0:
+                if f:
+                    print "5 = ", self.p.stm(word)
+                co = co + 5
+        for word in old:
+            if self.p.stm(word) in words and not self.p.is_adv(word) and not self.stop.get(word, 0) == 0:
+                if f:
+                    print "1 = ", self.p.stm(word)
+                co = co + 1
+        fl = True
+        for word in words:
+            if self.mapper.get(word, '1') == r or self.mapper.get(self.p.stm(word), '1') == r:
+                if f:
+                    print "r = ", word
+                co = co + 25
+                fl = False
+                break
+        if fl:
+            for word in words:
+                if self.mapper.get(word, '1') == r_old or self.mapper.get(self.p.stm(word), '1') == r_old:
+                    co = co + 15
+                    break
+
+        max_score = len(ls) * 5 + len(old) + sc
+        if r != "":
+            max_score = max_score + 25
+        if r_old != "":
+            max_score = max_score + 15
+        print "max score : ", max_score
+        return max_score, co
+
     def train(self):
         f = open("list5", 'r')
         lines = f.read().splitlines()
@@ -91,9 +131,10 @@ class data:
             if self.mapper.get(word, '1') == r:
                 co = co + 25
             elif self.mapper.get(word, '1') == r_old:
-                if self.mapper.get(word, '1') == r_old:
-                    co = co + 15
-
+                #if self.mapper.get(word, '1') == r_old:
+                co = co + 15
+        max_score = len(ls) * 5 + len(old) + 25 + 15
+        print "max score : ", max_score
         if co > 2:
             l = s + " " + b
             l = self.rep(l)
@@ -113,28 +154,8 @@ class data:
 
         if c == 'and' or c == 'a':
             return 0
-        co = sc
-        print "aaa ", r, " ", r_old
-        for word in ls:
-            if self.p.stm(word) in s + " " + c:
-                co = co + 5
-        for word in old:
-            if self.p.stm(word) in s + " " + c:
-                co = co + 1
-        words = (s + " " + c).split()
-        fl = True
-        for word in words:
-            if self.mapper.get(word, '1') == r or self.mapper.get(self.p.stm(word), '1') == r:
-                co = co + 25
-                fl = False
-                break
-        if fl:
-            for word in words:
-                if self.mapper.get(word, '1') == r_old or self.mapper.get(self.p.stm(word), '1') == r_old:
-                    co = co + 15
-                    break
-
-        if co > 2:
+        max_score, co = self.score(s + " " + c, ls, old, sc, r, r_old)
+        if co > max_score / 2:
             l = s + " " + c
             l = self.rep(l)
             lst.append((co, -len(l), l))
@@ -156,8 +177,9 @@ class data:
         return lst
 
     def s3(self, ls, old, r, r_old):
+        print r, " ", r_old
         lst = list()
-        sc = len(lst) + 10
+        sc = len(ls) + 10
         for a in ls:
             if self.p.is_adv(a) or a == 'like':
                 continue
@@ -175,4 +197,8 @@ class data:
                 for b in self.dic[a]:
                     self.search2(lst, a + " " + b, a, b,
                         c, ls, old, r, r_old, 0)
+        s = "i am an a.i."
+        c = 0
+        ma, c = self.score(s, ls, old, 0, r, r_old, True)
+        print "c = ", c
         return lst

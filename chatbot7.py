@@ -64,13 +64,13 @@ while 1:
                 if dt.stop.get(word, 0) == 0:
                     old.append(word)
         else:
-            if "?" in st:
+            if len(lt) > 0:
                 print "A.I. : I have no idea"
             else:
                 print "A.I. : ok"
 
     else:
-        if "?" in st:
+        if len(lt) > 0:
             print "A.I. : I have no idea"
         else:
             print "A.I. : ok"
